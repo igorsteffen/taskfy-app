@@ -1,0 +1,36 @@
+<div class="signup-container d-flex justify-content-center align-items-center min-vh-100 bg-light">
+    <div class="card shadow shadow-black p-4" style="width: 100%; max-width: 400px; position: relative; z-index: 2">
+      <h2 class="text-center mb-4">Sign Up</h2>
+  
+      <form [formGroup]="signupForm" (submit)="signup()">
+  
+        <!-- Name -->
+        <div class="mb-3">
+          <label for="name" class="form-label">First Name</label>
+          <input type="text" formControlName="name" class="form-control" placeholder="Enter your first name..."/>
+        </div>
+  
+        <!-- Lastname -->
+        <div class="mb-3">
+          <label for="lastname" class="form-label">Last Name</label>
+          <input type="text" formControlName="lastname" class="form-control" placeholder="Enter your last name..."/>
+        </div>
+  
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" formControlName="email" class="form-control" placeholder="Enter your email..." />
+        </div>
+  
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" formControlName="password" class="form-control" placeholder="Enter your password..." />
+        </div>
+  
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-success w-100">Sign Up</button>
+      </form>
+    </div>
+  </div>
+  

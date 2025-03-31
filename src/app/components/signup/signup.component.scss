@@ -1,0 +1,25 @@
+.signup-container {
+  height: 100vh;
+  width: 100vw;
+  background-image: url('/assets/splash-bg.jpg'); // <- coloque sua imagem aqui
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.signup-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.5); // branco com opacidade
+  z-index: 1;
+}
+
+:host {
+    display: block;
+  }
+
+  .card {
+    border-radius: 15px;
+  }
+  

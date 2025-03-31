@@ -1,0 +1,442 @@
+<div class="project-list-container">
+  <div class="pt-2 px-5 w-100">
+    <h3 class="projects-color">Projects</h3>
+  </div>
+  <div class="d-flex justify-content-center align-items-start pt-2">
+    <div class="example-container">
+      <h2 class="text-secondary custom-text-secondary">Backlog</h2>
+
+      <div
+        cdkDropList
+        id="backlog"
+        #backlogList="cdkDropList"
+        [cdkDropListData]="backlog"
+        [cdkDropListConnectedTo]="[inProgressList, reviewList, doneList]"
+        class="example-list-backlog shadow shadow-lg"
+        (cdkDropListDropped)="drop($event)"
+      >
+        @for (item of backlog; track item.id) {
+        <div class="example-box p-3 rounded bg-white mb-1" cdkDrag>
+          <div>
+            <div class="fw-bold" style="font-size: 13px">{{ item.name }}</div>
+            <div class="text-muted small d-flex align-items-center mt-1">
+              <i class="bi bi-clock me-1"></i>
+              <span>{{ item.dueDate | date : "dd/MM/yy" }}</span>
+            </div>
+            <!-- Ícones de ação -->
+            <div class="d-flex gap-2">
+              <i
+                class="bi bi-arrow-clockwise text-primary cursor-pointer"
+                title="Update"
+                (click)="openEditProjectModal(item)"
+              ></i>
+              <i
+                class="bi bi-trash text-danger cursor-pointer"
+                title="Delete"
+                (click)="openDeleteModal(item.id!)"
+              ></i>
+              <i
+                class="bi bi-list-task text-success cursor-pointer"
+                title="Task"
+                (click)="GoToProjectTasks(item.id)"
+              ></i>
+            </div>
+          </div>
+
+          <div class="status-radios d-flex gap-3 mt-2 align-items-center">
+            <label class="d-flex align-items-center gap-1">
+              <input
+                type="radio"
+                name="status-{{ item.id }}"
+                [checked]="item.status === 'Backlog'"
+                (change)="changeStatus(item, 'Backlog')"
+                style="accent-color: gray"
+              />
+              <small class="text-muted fw-bold">B</small>
+            </label>
+
+            <label class="d-flex align-items-center gap-1">
+              <input
+                type="radio"
+                name="status-{{ item.id }}"
+                [checked]="item.status === 'InProgress'"
+                (change)="changeStatus(item, 'InProgress')"
+                style="accent-color: #0d6efd"
+              />
+              <small class="text-primary fw-bold">IP</small>
+            </label>
+
+            <label class="d-flex align-items-center gap-1">
+              <input
+                type="radio"
+                name="status-{{ item.id }}"
+                [checked]="item.status === 'Review'"
+                (change)="changeStatus(item, 'Review')"
+                style="accent-color: rgb(255, 217, 0)"
+              />
+              <small class="text-warning fw-bold">R</small>
+            </label>
+
+            <label class="d-flex align-items-center gap-1">
+              <input
+                type="radio"
+                name="status-{{ item.id }}"
+                [checked]="item.status === 'Done'"
+                (change)="changeStatus(item, 'Done')"
+                style="accent-color: green"
+              />
+              <small class="text-success fw-bold">D</small>
+            </label>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="example-container">
+      <h2 class="text-primary custom-text-primary">In Progress</h2>
+
+      <div
+        cdkDropList
+        id="inProgress"
+        #inProgressList="cdkDropList"
+        [cdkDropListData]="inProgress"
+        [cdkDropListConnectedTo]="[backlogList, reviewList, doneList]"
+        class="example-list-progress shadow shadow-lg"
+        (cdkDropListDropped)="drop($event)"
+      >
+        @for (item of inProgress; track item.id) {
+        <div class="example-box p-3 rounded bg-white mb-1" cdkDrag>
+          <div>
+            <div class="fw-bold" style="font-size: 13px">{{ item.name }}</div>
+            <div class="text-muted small d-flex align-items-center mt-1">
+              <i class="bi bi-clock me-1"></i>
+              <span>{{ item.dueDate | date : "dd/MM/yy" }}</span>
+            </div>
+            <!-- Ícones de ação -->
+            <div class="d-flex gap-2">
+              <i
+                class="bi bi-arrow-clockwise text-primary cursor-pointer"
+                title="Update"
+                (click)="openEditProjectModal(item)"
+              ></i
+              ><i
+                class="bi bi-trash text-danger cursor-pointer"
+                title="Delete"
+                (click)="openDeleteModal(item.id!)"
+              ></i
+              ><i
+                class="bi bi-list-task text-success cursor-pointer"
+                title="Task"
+                (click)="GoToProjectTasks(item.id)"
+              ></i>
+            </div>
+          </div>
+          <div class="status-radios d-flex gap-3 mt-2 align-items-center">
+            <label class="d-flex align-items-center gap-1">
+              <input
+                type="radio"
+                name="status-{{ item.id }}"
+                [checked]="item.status === 'Backlog'"
+                (change)="changeStatus(item, 'Backlog')"
+                style="accent-color: gray"
+              />
+              <small class="text-muted fw-bold">B</small>
+            </label>
+
+            <label class="d-flex align-items-center gap-1">
+              <input
+                type="radio"
+                name="status-{{ item.id }}"
+                [checked]="item.status === 'InProgress'"
+                (change)="changeStatus(item, 'InProgress')"
+                style="accent-color: #0d6efd"
+              />
+              <small class="text-primary fw-bold">IP</small>
+            </label>
+
+            <label class="d-flex align-items-center gap-1">
+              <input
+                type="radio"
+                name="status-{{ item.id }}"
+                [checked]="item.status === 'Review'"
+                (change)="changeStatus(item, 'Review')"
+                style="accent-color: orange"
+              />
+              <small class="text-warning fw-bold">R</small>
+            </label>
+
+            <label class="d-flex align-items-center gap-1">
+              <input
+                type="radio"
+                name="status-{{ item.id }}"
+                [checked]="item.status === 'Done'"
+                (change)="changeStatus(item, 'Done')"
+                style="accent-color: green"
+              />
+              <small class="text-success fw-bold">D</small>
+            </label>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="example-container">
+      <h2 class="text-warning custom-text-warning">Review</h2>
+
+      <div
+        cdkDropList
+        id="review"
+        #reviewList="cdkDropList"
+        [cdkDropListData]="review"
+        [cdkDropListConnectedTo]="[backlogList, inProgressList, doneList]"
+        class="example-list-review shadow shadow-lg"
+        (cdkDropListDropped)="drop($event)"
+      >
+        @for (item of review; track item.id) {
+        <div class="example-box p-3 rounded bg-white mb-1" cdkDrag>
+          <div>
+            <div class="fw-bold" style="font-size: 13px">{{ item.name }}</div>
+            <div class="text-muted small d-flex align-items-center mt-1">
+              <i class="bi bi-clock me-1"></i>
+              <span>{{ item.dueDate | date : "dd/MM/yy" }}</span>
+            </div>
+            <!-- Ícones de ação -->
+            <div class="d-flex gap-2">
+              <i
+                class="bi bi-arrow-clockwise text-primary cursor-pointer"
+                title="Update"
+                (click)="openEditProjectModal(item)"
+              >
+              </i>
+              <i
+                class="bi bi-trash text-danger cursor-pointer"
+                title="Delete"
+                (click)="openDeleteModal(item.id!)"
+              ></i>
+              <i
+                class="bi bi-list-task text-success cursor-pointer"
+                title="Task"
+                (click)="GoToProjectTasks(item.id)"
+              ></i>
+            </div>
+          </div>
+
+          <div class="status-radios d-flex gap-3 mt-2 align-items-center">
+            <label class="d-flex align-items-center gap-1">
+              <input
+                type="radio"
+                name="status-{{ item.id }}"
+                [checked]="item.status === 'Backlog'"
+                (change)="changeStatus(item, 'Backlog')"
+                style="accent-color: gray"
+              />
+              <small class="text-muted fw-bold">B</small>
+            </label>
+
+            <label class="d-flex align-items-center gap-1">
+              <input
+                type="radio"
+                name="status-{{ item.id }}"
+                [checked]="item.status === 'InProgress'"
+                (change)="changeStatus(item, 'InProgress')"
+                style="accent-color: #0d6efd"
+              />
+              <small class="text-primary fw-bold">IP</small>
+            </label>
+
+            <label class="d-flex align-items-center gap-1">
+              <input
+                type="radio"
+                name="status-{{ item.id }}"
+                [checked]="item.status === 'Review'"
+                (change)="changeStatus(item, 'Review')"
+                style="accent-color: orange"
+              />
+              <small class="text-warning fw-bold">R</small>
+            </label>
+
+            <label class="d-flex align-items-center gap-1">
+              <input
+                type="radio"
+                name="status-{{ item.id }}"
+                [checked]="item.status === 'Done'"
+                (change)="changeStatus(item, 'Done')"
+                style="accent-color: green"
+              />
+              <small class="text-success fw-bold">D</small>
+            </label>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="example-container">
+      <h2 class="text-success custom-text-success">Done</h2>
+
+      <div
+        cdkDropList
+        id="done"
+        #doneList="cdkDropList"
+        [cdkDropListData]="done"
+        [cdkDropListConnectedTo]="[backlogList, inProgressList, reviewList]"
+        class="example-list-done shadow shadow-lg"
+        (cdkDropListDropped)="drop($event)"
+      >
+        @for (item of done; track item.id) {
+        <div class="example-box p-3 rounded bg-white mb-1" cdkDrag>
+          <div>
+            <div class="fw-bold" style="font-size: 13px">{{ item.name }}</div>
+            <div class="text-muted small d-flex align-items-center mt-1">
+              <i class="bi bi-clock me-1"></i>
+              <span>{{ item.dueDate | date : "dd/MM/yy" }}</span>
+            </div>
+            <!-- Ícones de ação -->
+            <div class="d-flex gap-2">
+              <i
+                class="bi bi-arrow-clockwise text-primary cursor-pointer"
+                title="Update"
+                (click)="openEditProjectModal(item)"
+              >
+              </i>
+              <i
+                class="bi bi-trash text-danger cursor-pointer"
+                title="Delete"
+                (click)="openDeleteModal(item.id!)"
+              ></i>
+              <i
+                class="bi bi-list-task text-success cursor-pointer"
+                title="Task"
+                (click)="GoToProjectTasks(item.id)"
+              ></i>
+            </div>
+          </div>
+
+          <div class="status-radios d-flex gap-3 mt-2 align-items-center">
+            <label class="d-flex align-items-center gap-1">
+              <input
+                type="radio"
+                name="status-{{ item.id }}"
+                [checked]="item.status === 'Backlog'"
+                (change)="changeStatus(item, 'Backlog')"
+                style="accent-color: gray"
+              />
+              <small class="text-muted fw-bold">B</small>
+            </label>
+
+            <label class="d-flex align-items-center gap-1">
+              <input
+                type="radio"
+                name="status-{{ item.id }}"
+                [checked]="item.status === 'InProgress'"
+                (change)="changeStatus(item, 'InProgress')"
+                style="accent-color: #0d6efd"
+              />
+              <small class="text-primary fw-bold">IP</small>
+            </label>
+
+            <label class="d-flex align-items-center gap-1">
+              <input
+                type="radio"
+                name="status-{{ item.id }}"
+                [checked]="item.status === 'Review'"
+                (change)="changeStatus(item, 'Review')"
+                style="accent-color: rgb(225, 146, 0)"
+              />
+              <small class="text-warning fw-bold">R</small>
+            </label>
+
+            <label class="d-flex align-items-center gap-1">
+              <input
+                type="radio"
+                name="status-{{ item.id }}"
+                [checked]="item.status === 'Done'"
+                (change)="changeStatus(item, 'Done')"
+                style="accent-color: green"
+              />
+              <small class="text-success fw-bold">D</small>
+            </label>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Project Modal -->
+<div
+  class="modal fade"
+  id="editProjectModal"
+  tabindex="-1"
+  aria-labelledby="projectModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4">
+      <h5 class="modal-title mb-3" id="projectModalLabel">Update Project</h5>
+
+      <form [formGroup]="editForm" (submit)="updateProject()">
+        <!-- Nome -->
+        <label for="projectName" class="form-label">Name</label>
+        <input
+          type="text"
+          class="form-control mb-3"
+          id="projectName"
+          formControlName="name"
+          required
+          placeholder="Project name"
+        />
+
+        <!-- Status -->
+        <div class="mb-3">
+          <label class="form-label d-block">Status</label>
+          <div class="form-check form-check-inline" *ngFor="let s of statuses">
+            <input
+              class="form-check-input"
+              type="radio"
+              [value]="s"
+              formControlName="status"
+              [id]="'status-' + s"
+            />
+            <label class="form-check-label" [for]="'status-' + s">{{
+              s
+            }}</label>
+          </div>
+        </div>
+
+        <!-- Due Date -->
+        <label for="dueDate" class="form-label">Due Date</label>
+        <input
+          type="date"
+          class="form-control mb-4"
+          id="dueDate"
+          formControlName="dueDate"
+        />
+
+        <button class="btn btn-warning w-100" type="submit">Update</button>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Confirmation Modal -->
+<div
+  class="modal fade"
+  id="confirmDeleteModal"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <h5 class="modal-title">Confirm Deletion</h5>
+      <p class="mt-2">Are you sure you want to delete this project?</p>
+      <div class="d-flex justify-content-end gap-2 mt-3">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button class="btn btn-danger" (click)="confirmDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

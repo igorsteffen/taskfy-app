@@ -1,0 +1,27 @@
+.navbar .btn {
+  border-radius: 20px;
+}
+.navbar input.form-control {
+  border-radius: 20px;
+}
+.navbar .dropdown-menu {
+  font-size: 0.9rem;
+  max-width: 250px;
+}
+.navbar .bi-bell {
+  font-size: 1.25rem;
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+button.reset-button {
+  all: unset;
+  cursor: pointer; /* opcional */
+}
+
+.modal-width {
+  max-width: 450px;
+  width: 100%;
+}/*# sourceMappingURL=navbar.component.css.map */

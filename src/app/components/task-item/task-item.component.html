@@ -1,0 +1,39 @@
+<div class="task-item-container d-flex justify-content-center pt-5">
+    <div class="card p-4 shadow-lg" style="width: 100%; max-width: 500px; z-index: 2;">
+      <h3 class="text-center mb-4 task-color">
+        Task: <span class="name-color">{{ task.title }}</span>
+      </h3>
+  
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <strong>Description:</strong>
+          <p class="mb-0">{{ task.description || 'No description provided' }}</p>
+        </li>
+  
+        <li class="list-group-item d-flex justify-content-between">
+          <span><strong>Status:</strong> {{ task.status }}</span>
+          <span><strong>Project:</strong> {{ projectName }}</span>
+        </li>
+  
+        <li class="list-group-item d-flex justify-content-between">
+          <span><strong>Created At:</strong> {{ task.createdAt | date: 'dd/MM/yyyy' }}</span>
+          <span><strong>Due Date:</strong> {{ task.dueDate | date: 'dd/MM/yyyy' }}</span>
+        </li>
+  
+        <li class="list-group-item">
+          <strong>Tags: </strong>
+          <span *ngIf="task?.tagIds?.length; else noTags">
+            <span *ngFor="let tag of task?.tagIds" class="badge bg-primary me-1">{{ tag }}</span>
+          </span>
+          <ng-template #noTags>
+            <span class="text-muted">No tags</span>
+          </ng-template>
+        </li>
+      </ul>
+  
+      <div class="mt-4 text-center">
+        <button class="btn btn-outline-primary" (click)="goBack()">Back</button>
+      </div>
+    </div>
+  </div>
+  
