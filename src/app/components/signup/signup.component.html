@@ -1,36 +1,111 @@
-<div class="signup-container d-flex justify-content-center align-items-center min-vh-100 bg-light">
-    <div class="card shadow shadow-black p-4" style="width: 100%; max-width: 400px; position: relative; z-index: 2">
-      <h2 class="text-center mb-4">Sign Up</h2>
-  
-      <form [formGroup]="signupForm" (submit)="signup()">
-  
-        <!-- Name -->
-        <div class="mb-3">
-          <label for="name" class="form-label">First Name</label>
-          <input type="text" formControlName="name" class="form-control" placeholder="Enter your first name..."/>
+<div
+  class="signup-container d-flex justify-content-center align-items-center min-vh-100 bg-light"
+>
+  <div
+    class="card shadow shadow-black p-4"
+    style="width: 100%; max-width: 400px; position: relative; z-index: 2"
+  >
+    <h2 class="text-center mb-4">Sign Up</h2>
+
+    <form [formGroup]="signupForm" (submit)="signup()">
+      <!-- Name -->
+      <div class="mb-3">
+        <label for="name" class="form-label">First Name</label>
+        <input
+          type="text"
+          formControlName="name"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              signupForm.get('name')?.touched && signupForm.get('name')?.invalid
+          }"
+          placeholder="Enter your first name..."
+        />
+        <div class="invalid-feedback">Name Required.</div>
+      </div>
+
+      <!-- Lastname -->
+      <div class="mb-3">
+        <label for="lastname" class="form-label">Last Name</label>
+        <input
+          type="text"
+          formControlName="lastname"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              signupForm.get('lastname')?.touched &&
+              signupForm.get('lastname')?.invalid
+          }"
+          placeholder="Enter your last name..."
+        />
+        <div class="invalid-feedback">Last Name Required.</div>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          formControlName="email"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              signupForm.get('email')?.touched &&
+              signupForm.get('email')?.invalid
+          }"
+          placeholder="Enter your email..."
+        />
+        <div
+          class="invalid-feedback"
+          *ngIf="signupForm.get('email')?.errors?.['required']"
+        >
+          Email Required.
         </div>
-  
-        <!-- Lastname -->
-        <div class="mb-3">
-          <label for="lastname" class="form-label">Last Name</label>
-          <input type="text" formControlName="lastname" class="form-control" placeholder="Enter your last name..."/>
+        <div
+          class="invalid-feedback"
+          *ngIf="signupForm.get('email')?.errors?.['email']"
+        >
+          Email Format Invalid.
         </div>
-  
-        <!-- Email -->
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" formControlName="email" class="form-control" placeholder="Enter your email..." />
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          formControlName="password"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              signupForm.get('password')?.touched &&
+              signupForm.get('password')?.invalid
+          }"
+          placeholder="Enter your password..."
+        />
+        <div
+          class="invalid-feedback"
+          *ngIf="signupForm.get('password')?.errors?.['required']"
+        >
+          Password Required.
         </div>
-  
-        <!-- Password -->
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" formControlName="password" class="form-control" placeholder="Enter your password..." />
+        <div
+          class="invalid-feedback"
+          *ngIf="
+          signupForm.get('password')?.touched && 
+          signupForm.get('password')?.errors?.['minlength']"
+        >
+          Password must contain at least 6 characters
         </div>
-  
-        <!-- Submit Button -->
-        <button type="submit" class="btn btn-success w-100">Sign Up</button>
-      </form>
-    </div>
+      </div>
+
+      <!-- API Error -->
+      <div *ngIf="signupError" class="alert alert-danger">
+        {{ signupError }}
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-success w-100">Sign Up</button>
+    </form>
   </div>
-  
+</div>

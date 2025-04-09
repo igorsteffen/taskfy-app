@@ -1,4 +1,4 @@
-<nav
+<nav *ngIf="authService.auth$ | async"
   class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4"
   style="position: relative; z-index: 2"
 >

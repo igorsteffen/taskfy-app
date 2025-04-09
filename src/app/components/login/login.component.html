@@ -5,13 +5,39 @@
       <form [formGroup]="loginForm" (submit)="login()">
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
-          <input type="email" formControlName="email" class="form-control" placeholder="Enter your email..."/>
+          <input
+          type="email"
+          formControlName="email"
+          class="form-control"
+          placeholder="Enter your email..."
+          [ngClass]="{'is-invalid': loginForm.get('email')?.touched && loginForm.get('email')?.invalid}"
+        />
+        <div class="invalid-feedback" *ngIf="loginForm.get('email')?.errors?.['required']">
+          Email Required.
+        </div>
+        <div class="invalid-feedback" *ngIf="loginForm.get('email')?.errors?.['email']">
+          Invalid Email Format.
+        </div>
         </div>
   
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
-          <input type="password" formControlName="password" class="form-control" placeholder="Enter your password..." />
+          <input
+          type="password"
+          formControlName="password"
+          class="form-control"
+          placeholder="Enter your password..."
+          [ngClass]="{'is-invalid': loginForm.get('password')?.touched && loginForm.get('password')?.invalid}"
+        />
+        <div class="invalid-feedback" *ngIf="loginForm.get('password')?.errors?.['required']">
+          Password Required.
         </div>
+        </div>
+
+        <!-- ERRO DE LOGIN (BACKEND) -->
+      <div *ngIf="loginError" class="alert alert-danger">
+        {{ loginError }}
+      </div>
   
         <button type="submit" class="btn btn-primary w-100">
           Login

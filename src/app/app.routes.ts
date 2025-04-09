@@ -6,6 +6,8 @@ import { ProjectListComponent } from './components/project-list/project-list.com
 import { AuthGuard } from './guards/auth.guard';
 import { ProjectTasksComponent } from './components/project-tasks/project-tasks.component';
 import { TaskItemComponent } from './components/task-item/task-item.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { ChatbotComponent } from './components/chatbot/chatbot.component';
 
 export const routes: Routes = [
     { path: '', component: SplashComponent },
@@ -14,4 +16,6 @@ export const routes: Routes = [
   { path: 'projects', component: ProjectListComponent, canActivate:[AuthGuard] },
   { path: 'projects/:id/projectTasks', component: ProjectTasksComponent, canActivate:[AuthGuard] },
   { path: 'tasks/:id', component: TaskItemComponent, canActivate:[AuthGuard] },
+  { path: 'navbar', component: NavbarComponent, canActivate:[AuthGuard]},
+  { path: 'chatbot', component: ChatbotComponent, canActivate:[AuthGuard]}
 ];

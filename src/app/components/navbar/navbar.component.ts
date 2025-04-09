@@ -24,7 +24,7 @@ export class NavbarComponent {
   constructor(
     private fb: FormBuilder, 
     private taskService:TaskService,
-    private authService : AuthService, 
+    public authService : AuthService, 
     private projectService : ProjectService,
     private router : Router
   ){}
@@ -43,15 +43,6 @@ export class NavbarComponent {
       status: ['Backlog', Validators.required],
       dueDate: ['', Validators.required],
       tagIds: [[]]
-    });
-
-    this.projectService.getProjects().subscribe({
-      next: (projects) => {
-        this.projects = projects;
-      },
-      error: (err) => {
-        console.error('Error loading projects:', err);
-      }
     });
   }
 

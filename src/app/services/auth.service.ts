@@ -28,31 +28,20 @@ export class AuthService {
 
   
 
-  signup(name : string, lastname : string, email : string, password : string){
-    return this.http.post<void>(`${this.apiUrl}/signup`, {name, lastname, email, password}).subscribe({
-      next: () => {
-        console.log("User created!");
-        this.authSubject.next(false)
-        this.router.navigate(['/login']);
-      },
-      error: (err) => {
-        console.error("Erro:", err);
-      }
-    });
+  signup(data: {name : string, lastname : string, email : string, password : string}){
+    return this.http.post<void>(`${this.apiUrl}/signup`, data);
   }
 
   login(email : string, password : string){
-    return this.http.post<{token : string}>(`${this.apiUrl}/login`, {email, password}).subscribe(response => {
-      sessionStorage.setItem('token', response.token)
-      this.authSubject.next(true)
-      this.router.navigate(['/projects']);
-    });
+    this.authSubject.next(true)
+    return this.http.post<{token : string}>(`${this.apiUrl}/login`, {email, password});
   }
 
   logout(){
-    sessionStorage.removeItem('token');
     this.authSubject.next(false)
+    sessionStorage.removeItem('token');
     this.router.navigate(['/login'])
+    //window.location.reload();
   }
 
   getToken(){
