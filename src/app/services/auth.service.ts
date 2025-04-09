@@ -22,7 +22,7 @@ export class AuthService {
     this.authSubject.next(!!token);
   }
 
-  private apiUrl = "https://localhost:7171/api/Users";
+  private apiUrl = "https://taskfy20250408212035.azurewebsites.net/api/Users";
   private authSubject = new BehaviorSubject<boolean>(false);
   auth$ = this.authSubject.asObservable();
 

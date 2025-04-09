@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 })
 export class ProjectService {
 
-  private apiUrl = "https://localhost:7171/api/Projects"
+  private apiUrl = "https://taskfy20250408212035.azurewebsites.net/api/Projects"
 
   constructor(private http:HttpClient, private authService:AuthService) { }
 
